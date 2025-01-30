@@ -35,7 +35,7 @@ contract AMM is ERC6909 {
     /// Storage layout :-
     ///     mstore(0x00, token0)
     ///     mstore(0x20, token1)
-    ///     let poolSlot := keccak256(0x00, 0x20)
+    ///     let poolSlot := keccak256(0x00, 0x40)
     ///     isInitialized := sload(poolSlot)
     ///     reserve0 := sload(add(poolSlot, 1))
     ///     reserve1 := sload(add(poolSlot, 2))
@@ -181,7 +181,7 @@ contract AMM is ERC6909 {
             mstore(0x00, tokenA)
             mstore(0x20, tokenB)
             let con := eq(token1, tokenA)
-            let key := keccak256(0x00, 0x20)
+            let key := keccak256(0x00, 0x40)
             isInitialized := sload(key)
             reserve0 := sload(add(key, add(1, con)))
             reserve1 := sload(add(key, add(1, iszero(con))))
@@ -194,7 +194,7 @@ contract AMM is ERC6909 {
         assembly {
             mstore(0x00, token0)
             mstore(0x20, token1)
-            let slot := keccak256(0x00, 0x20)
+            let slot := keccak256(0x00, 0x40)
             sstore(slot, 1) // true isInitialized
         }
     }
@@ -206,7 +206,7 @@ contract AMM is ERC6909 {
             mstore(0x00, tokenA)
             mstore(0x20, tokenB)
             let con := eq(token1, tokenA)
-            let key := keccak256(0x00, 0x20)
+            let key := keccak256(0x00, 0x40)
             sstore(add(key, add(1, con)), reserve0)
             sstore(add(key, add(1, iszero(con))), reserve1)
         }
